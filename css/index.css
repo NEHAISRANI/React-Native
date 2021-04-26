@@ -1,0 +1,43 @@
+.main{
+    display: flex;
+    flex-wrap:wrap ;
+    justify-content: space-between;
+}
+
+ul {
+    list-style-type: none; 
+}
+
+.brand_img {
+    margin-top: 30px;
+    width: 210px;
+    height: 210px;
+    margin-right: 30px;
+}
+.btn-icon {
+    display: flex;
+    justify-content: space-between; 
+    margin-left: 30px;
+    margin-right: 30px;
+    flex-wrap: wrap;
+    /* background-color: #ddd;  */
+    padding: 10px;
+}
+.fa-thumbs-up {
+    font-size:20px;
+    cursor: pointer;
+}
+.fa-thumbs-down {
+    margin-right: 30px;
+    font-size:20px;
+    cursor: pointer;
+}
+.brand {
+    text-align: center;
+    /* background: #ddd;  */
+}
+.title {
+    color: black;
+    font-size: 20px;
+    font-weight: 560;
+} 
