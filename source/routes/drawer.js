@@ -1,15 +1,18 @@
 import React from 'react';
 import{createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
 import Home from'../screens/home';
 import ArtworkDetails from '../screens/artworkDetails';
 import Cart from '../screens/cart';
 import Checkout from '../screens/checkOut'
 import Logout from '../screens/logout'
+import Profile from '../screens/profile';
 const MyDrawer=createDrawerNavigator({
     Home:{
         screen:Home,
+    },
+    Profile:{
+        screen:Profile,
     },
     ArtworkDetails:{
         screen:ArtworkDetails,
