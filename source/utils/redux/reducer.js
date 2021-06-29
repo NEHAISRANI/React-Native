@@ -1,7 +1,7 @@
 const initialState = {
-    email:'-',
-    password:'-',
-    isLoggedIn:'false'
+    email:'',
+    password:'',
+    isLogIn:'false'
 }
 
 
@@ -10,14 +10,14 @@ const reducer = (state=initialState,action)=>
 {
   
     switch(action.type){
-        case "LOG_IN": {
-          return {...state,email:action.email,pass:action.pass,isLoggedIn:action.isLoggedIn};
+        case "logIn": {
+          return {...state,email:action.email,pass:action.pass,isLogIn:action.isLogIn};
         }
-        case "LOG_OUT": {
-          return {...state,email:'-',pass:'-',isLoggedIn:'false'};
+        case "logOut": {
+          return {...state,email:'',pass:'',isLogIn:'false'};
         }
-        default: {
-          return state;
+        default:{
+          return 
         }
     }
 

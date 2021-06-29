@@ -1,6 +1,6 @@
 
 import {createStore} from 'redux';
-import reducer from '/home/coditas/Desktop/Redux/source/utils/redux/reducer.js';
+import reducer from '../redux/reducer';
 
 const store = createStore(reducer);
 

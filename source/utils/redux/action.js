@@ -1,17 +1,17 @@
-const isLoggingIn = (email,pass,isLoggedIn) => {
+const isLoggedIn = (email,pass,isLogIn) => {
     return{
-        type:'LOG_IN',
+        type:'logIN',
         email:email,
         pass:pass,
-        isLoggedIn:isLoggedIn
+        isLogIn:isLogIn
     }
 }
 
-const isLoggingOut = (isLoggedOut) => {
+const isLoggedOut = (isLogOut) => {
     return{
-        type:'LOG_OUT',
-        isLoggedOut:isLoggedOut
+        type:'logOUT',
+        isLogOut:isLogOut
     }
 }
 
-export  {isLoggingIn,isLoggingOut} 
+export  {isLoggedIn,isLoggedOut} 
