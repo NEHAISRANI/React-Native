@@ -9,8 +9,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import img from '/home/coditas/Desktop/Redux/source/utils/image.js';
-import storeData from '/home/coditas/Desktop/Redux/source/utils/store.js';
+import img from '../images';
+import storeData from '../utils/store';
 import {NavigationEvents} from 'react-navigation';
 
 export default class Cart extends Component {
@@ -56,208 +56,202 @@ export default class Cart extends Component {
           }}
         />
         <View>
-          <FlatList
-            data={this.state.dataList}
-            renderItem={({item, index}) => (
-              <View style={styles.outerCard}>
-                <View style={styles.card}>
-                  <View style={styles.img_container}>
-                    <Image style={styles.img} source={{uri: item.src}} />
-                  </View>
-                  <View style={styles.details_container}>
-                    <View style={styles.row}>
-                      <Text style={styles.spec}>Title : </Text>
-                      <Text style={styles.info}>{item.title}</Text>
-                    </View>
-                    <View style={styles.row}>
-                      <Text style={styles.spec}>Genre : </Text>
-                      <Text style={styles.info}>{item.genre}</Text>
-                    </View>
-                    <View style={styles.row}>
-                      <Text style={styles.spec}>Price : </Text>
-                      <Text style={styles.info}>{item.price}</Text>
-                    </View>
-                    <View style={styles.row}>
-                      <Text style={styles.spec}>Quantity : </Text>
-                      <View style={{flexDirection: 'row', maxHeight: 25}}>
-                        <TouchableOpacity
-                          onPress={() => {
-                            item.quantity++;
-                            this.setState({dataList: this.state.dataList});
-
-                            this.setState({
-                              totalCost: this.state.dataList.reduce(
-                                (acc, element) => {
-                                  return (acc +=
-                                    element.price * element.quantity);
-                                },
-                                0,
-                              ),
-                            });
-
-                            storeData(this.state.dataList);
-                          }}>
-                          <Text style={styles.qtyChanger}> + </Text>
-                        </TouchableOpacity>
-                        <Text style={styles.info}> {item.quantity} </Text>
-                        <TouchableOpacity
-                          onPress={() => {
-                            if (item.quantity > 1) {
-                              item.quantity--;
-                              this.setState({dataList: this.state.dataList});
-
-                              this.setState({
-                                totalCost: this.state.dataList.reduce(
-                                  (acc, element) => {
-                                    return (acc +=
-                                      element.price * element.quantity);
-                                  },
-                                  0,
-                                ),
-                              });
-
-                              storeData(this.state.dataList);
-                            }
-                          }}>
-                          <Text style={styles.qtyChanger}> - </Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-
+        <FlatList 
+        data={this.state.dataList}
+        renderItem={({item, index}) => (
+          <View style={styles.outerCard}>
+            <View style={styles.Card}>
+                <Image style={styles.img} source={{uri: item.src}} />
+              <View style={styles.detailsContainer}>
+                <View style={styles.row}>
+                <Text style={styles.Details}>{`title : ${item.title}`}</Text>
+                </View>
+                <View style={styles.row}>
+                <Text style={styles.Details}>{`genre : ${item.genre}`}</Text>
+                </View>
+                <View style={styles.row}>
+                <Text style={styles.Details}>{`price :${item.price}`}</Text>
+                </View>
+                <View style={styles.row}>
+                <Text style={styles.Details}>{'Quantity :  '}</Text>
+                  <View style={{flexDirection: 'row', maxHeight: 25}}>
                     <TouchableOpacity
-                      style={styles.row}
-                      onPress={async () => {
-                        this.setState({
-                          dataList: await this.state.dataList.filter(
-                            (listItem, listIndex) => listIndex !== index,
-                          ),
-                        });
-                        this.setState({
+                      onPress={() => {
+                        item.quantity++;
+                        this.setState({dataList: this.state.dataList});
+
+                        this.setState({ 
                           totalCost: this.state.dataList.reduce(
                             (acc, element) => {
-                              return (acc += element.price * element.quantity);
+                              return (acc +=
+                                element.price * element.quantity);
                             },
                             0,
                           ),
                         });
 
-                        await storeData(this.state.dataList);
+                        storeData(this.state.dataList);
                       }}>
-                      <Text
-                        style={{
-                          fontWeight: 'bold',
-                          marginTop: 7,
-                          fontSize: 16,
-                        }}>
-                        Remove
-                      </Text>
-                      <Image
-                        style={{height: 30, width: 30, marginTop: 5}}
-                        source={img.delImage}
-                      />
+                      <Text style={styles.qtyChanger}> + </Text>
+                    </TouchableOpacity>
+                    <Text style={styles.info}> {item.quantity} </Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (item.quantity > 1) {
+                          item.quantity--;
+                          this.setState({dataList: this.state.dataList});
+
+                          this.setState({
+                            totalCost: this.state.dataList.reduce(
+                              (acc, element) => {
+                                return (acc +=
+                                  element.price * element.quantity);
+                              },
+                              0,
+                            ),
+                          });
+
+                          storeData(this.state.dataList);
+                        }
+                      }}>
+                      <Text style={styles.qtyChanger}> - </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
+
+                <TouchableOpacity
+                  style={styles.row}
+                  onPress={async () => {
+                    this.setState({
+                      dataList: await this.state.dataList.filter(
+                        (listItem, listIndex) => listIndex !== index,
+                      ),
+                    });
+                    this.setState({
+                      totalCost: this.state.dataList.reduce(
+                        (acc, element) => {
+                          return (acc += element.price * element.quantity);
+                        },
+                        0,
+                      ),
+                    });
+
+                    await storeData(this.state.dataList);
+                  }}>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      marginTop: 7,
+                      fontSize: 16,
+                    }}>
+                    Remove
+                  </Text>
+                  <Image
+                    style={{height: 30, width: 30, marginTop: 5}}
+                    source={delImage}
+                  />
+                </TouchableOpacity>
               </View>
-            )}
-          />
-          <View style={styles.total}>
-            <Text style={{fontSize: 30, color: 'coral'}}>Total Cost :</Text>
-            <Text style={styles.cost}> $ {this.state.totalCost} /-</Text>
+            </View>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-            <TouchableOpacity
-              onPress={
-                (clearStorage = async () => {
-                  try {
-                    await AsyncStorage.clear();
-                    alert('Storage successfully cleared!');
-                  } catch (e) {
-                    alert('Failed to clear the async storage.');
-                  }
-                })
-              }>
-              <Text style={styles.btn}>Clear Cart</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Checkout');
-              }}>
-              <Text style={styles.btn}>CheckOut</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ImageBackground>
-    );
-  }
+        )}
+      />
+      <View style={styles.total}>
+        <Text style={{fontSize: 30, color: 'skyblue'}}>Total Cost :</Text>
+        <Text style={styles.Cost}> $ {this.state.totalCost} /-</Text>
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <TouchableOpacity
+          onPress={
+            (clearStorage = async () => {
+              try {
+                await AsyncStorage.clear();
+                alert('Storage Successfully Cleared!');
+              } catch (e) {
+                alert('Failed to clear the async storage.');
+              }
+            })
+          }>
+          <Text style={styles.btn}>Clear Cart</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Checkout');
+          }}>
+          <Text style={styles.btn}>CheckOut</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  </ImageBackground>
+);
+}
 }
 
 const styles = StyleSheet.create({
-  card: {
-    flexDirection: 'row',
-  },
-  outerCard: {
-    width: '90%',
-    borderWidth: 3,
-    borderRadius: 10,
-    borderColor: 'skyblue',
-    marginBottom: 20,
-    alignSelf: 'center',
-  },
-  img: {
-    height: 160,
-    width: 120,
-    borderRadius: 30,
-    margin: 5,
-    borderWidth: 0.5,
-    borderColor: 'black',
-  },
-  details_container: {
-    marginTop: 20,
-    marginLeft: 7,
-  },
-  row: {
-    flexDirection: 'row',
-    marginBottom: 5,
-    width: 160,
-  },
-  spec: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  info: {
-    fontSize: 16,
-  },
-  cost: {
-    fontSize: 30,
-    color: 'blue',
-  },
-  total: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-  },
-  btn: {
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
-    color: 'skyblue',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: 'skyblue',
-    marginHorizontal: 10,
-  },
-  remove: {
-    borderWidth: 5,
-    marginBottom: 10,
-  },
-  qtyChanger: {
-    fontSize: 20,
-    borderWidth: 2,
-    fontWeight: 'bold',
-    borderColor: 'skyblue',
-    color: 'skyblue',
-  },
+Card: {
+flexDirection: 'row',
+},
+outerCard: {
+width: '90%',
+borderWidth: 3,
+borderRadius: 10,
+borderColor: 'skyblue',
+marginBottom: 20,
+alignSelf: 'center',
+},
+img: {
+height: 160,
+width: 120,
+borderRadius: 30,
+margin: 5,
+borderWidth: 0.5,
+borderColor: 'black',
+},
+detailsContainer: {
+marginTop: 20,
+marginLeft: 7,
+},
+row: {
+flexDirection: 'row',
+marginBottom: 5,
+width: 160,
+},
+Details:{
+fontSize: 13,
+color: 'black',
+alignSelf: 'center',    
+fontWeight: 'bold',
+
+},
+info: {
+fontSize: 16,
+},
+Cost: {
+fontSize: 30,
+color: 'blue',
+},
+total: {
+flexDirection: 'row',
+alignSelf: 'center',
+},
+btn: {
+fontWeight: 'bold',
+fontSize: 20,
+paddingVertical: 5,
+paddingHorizontal: 5,
+color: 'skyblue',
+justifyContent: 'center',
+alignSelf: 'center',
+borderRadius: 20,
+borderWidth: 2,
+borderColor: 'skyblue',
+marginHorizontal: 10,
+},
+qtyChanger: {
+fontSize: 20,
+borderWidth: 2,
+fontWeight: 'bold',
+borderColor: 'skyblue',
+color: 'skyblue',
+},
 });

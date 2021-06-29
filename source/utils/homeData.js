@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList, Image, TouchableOpacity,StyleSheet} from 'react-native';
 import axios from 'axios';
-import imgArray from './data'
+import assestArray from './data'
 import toast from '/home/coditas/Desktop/Redux/source/utils/toast.js';
 
 function HomeData(props) {
@@ -20,8 +20,8 @@ function HomeData(props) {
   return (
     <FlatList
       horizontal={true}
-      data={imgArray}
-      keyExtractor={(item, index) => item._imageUrl}
+      data={assestArray}
+      keyExtractor={(item) => item._imageUrl}
       renderItem={({item}) => (
         <TouchableOpacity
           onPress={() => {

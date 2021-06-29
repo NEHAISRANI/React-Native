@@ -1,4 +1,4 @@
-import React, {useState, useEffect,Suspense,lazy} from 'react';
+import React, {Suspense} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,8 +6,8 @@ import {
   ImageBackground,
   _Text,
 } from 'react-native';
-import img from '/home/coditas/Desktop/Redux/source/utils/image.js';
-const HomeData = React.lazy(() => import('/home/coditas/Desktop/Redux/source/utils/homeData.js'))
+import img from '../images';
+const HomeData = React.lazy(() => import('../utils/homeData'))
 
 function Home({navigation}) {
 
@@ -16,7 +16,7 @@ function Home({navigation}) {
       <View>
         <Text style={styles.HeadingContainer}>Graphic Artwork</Text>
         <View style={styles.Container}>
-         <Suspense fallback={<Text style={{fontSize:50,fontWeight:'bold',alignSelf:'center'}}>Loading...</Text>}>
+         <Suspense fallback={<Text style={{fontSize:50,fontWeight:'bold',alignSelf:'center'}}>Loading</Text>}>
          <HomeData
           nextPg = 'ArtworkDetails'
           nav = {navigation}          

@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import img from '../images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import toast from '/home/coditas/Desktop/Redux/source/utils/toast.js'
-import storeData from '/home/coditas/Desktop/Redux/source/utils/store.js'
+import toast from '../utils/toast';
+import storeData from '../utils/store'
 
 export default function ArtworkDetails({navigation}) {
   const items = {
@@ -42,7 +42,7 @@ export default function ArtworkDetails({navigation}) {
         });
     } catch (e) {}
   };
-  return navigation.getParam('imageUrl') ? (
+  return navigation.getParam('id') ? (
     <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
       <View style={styles.Container}>
         <Image style={styles.imageContainer} source={{uri: items.src}} />
@@ -52,7 +52,7 @@ export default function ArtworkDetails({navigation}) {
         <Text style={styles.Details}>{`price => ${items.price}`}</Text>
         <TouchableOpacity
           onPress={async () => {
-            await getData();
+            await getData(); 
             await storeData(arr);
             toast(`${items.title} added to the cart`)
             navigation.navigate('Cart', items);
