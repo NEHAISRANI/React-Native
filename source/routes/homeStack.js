@@ -10,8 +10,6 @@ import {useSelector} from 'react-redux'
 
 function Homestack() {
   const isLoggedIn = useSelector(state => state.isLoggedIn);
-  console.log(isLoggedIn);
-
   if (isLoggedIn == 'true') {
     screens = {
       Drawer: {
@@ -64,8 +62,8 @@ function Homestack() {
     };
   }
 
-const homestack = createStackNavigator(screens);
-const Appcontainer =  createAppContainer(homestack)
+const homeStack = createStackNavigator(screens);
+const Appcontainer =  createAppContainer(homeStack)
  return (
      <Appcontainer/>  
  )

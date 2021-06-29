@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
-import img from '/home/coditas/Desktop/Redux/source/utils/image.js';
+import img from '../images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import toast from '/home/coditas/Desktop/Redux/source/utils/toast.js'
 import storeData from '/home/coditas/Desktop/Redux/source/utils/store.js'
