@@ -9,34 +9,21 @@ import {
   ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import img from '../utils/images';
-import storeData from '../services/store';
+import img from '../../utils/images';
+import {storeData} from '../../services/AsyncStorageService';
+import {clearStorage} from '../../services/AsyncStorageService';
 import {NavigationEvents} from 'react-navigation';
 
 export default class Cart extends Component {
   getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('save_data');
-      const jsonValue = value != null ? JSON.parse(value) : null;
-
-      console.log('data', jsonValue);
-      if (jsonValue !== null) {
-        this.setState({dataList: jsonValue});
-      }
-    } catch (e) {
-      console.log('error', e);
-    }
+    await (jsonValue = AsyncStorage.getItem('save_data')
+      .then(jsonValue => {
+        return jsonValue != null ? JSON.parse(jsonValue) : null;
+      })
+      .then(response => {
+        this.setState({dataList: response}); 
+      }));
   };
-
-  // getData = async () => {
-  //   await (jsonValue = AsyncStorage.getItem('save_data')
-  //     .then(jsonValue => {
-  //       return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //     })
-  //     .then(response => {
-  //       this.setState({dataList: response}); 
-  //     }));
-  // };
 
   updation = async () => {
     await this.getData();
@@ -91,7 +78,7 @@ export default class Cart extends Component {
                     </View>
                     <View style={styles.row}>
                       <Text style={styles.Details}>{'quantity :  '}</Text>
-                      <View style={{flexDirection: 'row', maxHeight: 25}}>
+                      <View style={styles.qty}>
                         <TouchableOpacity
                           onPress={() => {
                             item.quantity++;
@@ -100,7 +87,7 @@ export default class Cart extends Component {
                             this.setState({
                               totalCost: this.state.dataList.reduce(
                                 (acc, element) => {
-                                  return (acc +=
+                                  return (acc += 
                                     element.price * element.quantity);
                                 },
                                 0, 
@@ -111,7 +98,7 @@ export default class Cart extends Component {
                           }}>
                           <Text style={styles.qtyChanger}> + </Text>
                         </TouchableOpacity>
-                        <Text style={{fontSize: 15}}> {item.quantity} </Text>
+                        <Text style={styles.decrQty}> {item.quantity} </Text>
                         <TouchableOpacity
                           onPress={() => {
                             if (item.quantity > 1) {
@@ -119,6 +106,7 @@ export default class Cart extends Component {
                               this.setState({dataList: this.state.dataList});
 
                               this.setState({
+                                // dataList: this.state.dataList,
                                 totalCost: this.state.dataList.reduce(
                                   (acc, element) => {
                                     return (acc +=
@@ -138,13 +126,16 @@ export default class Cart extends Component {
 
                     <TouchableOpacity
                       style={styles.row}
-                      onPress={async () => {
+                      onPress={async () => { 
                         this.setState({
                           dataList: await this.state.dataList.filter(
                             (listItem, listIndex) => listIndex !== index,
                           ),
                         });
                         this.setState({
+                          // dataList: await this.state.dataList.filter(
+                          //   (listItem, listIndex) => listIndex !== index,
+                          // ),
                           totalCost: this.state.dataList.reduce(
                             (acc, element) => {
                               return (acc += element.price * element.quantity);
@@ -153,7 +144,7 @@ export default class Cart extends Component {
                           ),
                         });
 
-                        await storeData(this.state.dataList);
+                        storeData(this.state.dataList);
                       }}>
                       <Text
                         style={{
@@ -165,7 +156,7 @@ export default class Cart extends Component {
                         Remove
                       </Text>
                       <Image
-                        style={{height: 30, width: 30, marginTop: 5}}
+                        style={styles.delContainer}
                         source={img.delImage}
                       />
                     </TouchableOpacity>
@@ -174,24 +165,18 @@ export default class Cart extends Component {
               </View>
             )}
           />
-          <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-            <Text style={{fontSize: 28, color: 'white'}}>Total Cost :</Text>
-            <Text style={{fontSize: 28, color: 'white'}}>
+          <View style={styles.tcostContainer}>
+            <Text style={styles.tcostHeading}>Total Cost :</Text>
+            <Text style={styles.tcostHeading}>
               {' '}
               $ {this.state.totalCost} /-
             </Text>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={styles.tcostContainer}>
             <TouchableOpacity
               onPress={
-                (clearStorage = async () => {
-                  try {
-                    await AsyncStorage.clear();
-                    alert('Storage has been cleared');
-                  } catch (e) {
-                    alert('Failed to clear the async storage.');
-                  }
-                })
+                clearStorage 
+                
               }>
               <Text style={styles.btn}>Clear Cart</Text>
             </TouchableOpacity>
@@ -225,6 +210,12 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     margin: 6,
+},
+qty:{
+  flexDirection: 'row', maxHeight: 25
+},
+decrQty:{
+  fontSize: 15
 },
   detailsContainer: {
     marginLeft: 8,
@@ -263,5 +254,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     borderRadius: 21,
   },
+  delContainer:{
+    height: 30, width: 30, marginTop: 5
+  },
+  tcostContainer:{
+    flexDirection: 'row', 
+    alignSelf: 'center'
+  },
+  tcostHeading:{
+    fontSize: 28, 
+    color: 'white'
+  }
 });
-

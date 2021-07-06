@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import {View, StyleSheet, Text, ImageBackground, _Text} from 'react-native';
 import img from '../../utils/images';
-const HomeData = React.lazy(() => import('../../utils/homeData'));
+const HomeData = React.lazy(() => import('./homeData'));
 
 export default function Home({navigation}) {
   return (

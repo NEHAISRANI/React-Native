@@ -10,8 +10,8 @@ import {
 import img from '../../utils/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import toast from '../../utils/toast';
-import storeData from '../../services/store';
-
+import {storeData} from '../../services/AsyncStorageService';
+// import {getItem} from '../../services/AsyncStorageService'
 export default function ArtworkDetails({navigation}) {
   const items = {
     id: navigation.getParam('id'),
@@ -21,50 +21,33 @@ export default function ArtworkDetails({navigation}) {
     price: navigation.getParam('price'),
     quantity: 1,
   };
-  // let arr; 
-  // const getData = async () => {
-  //   try {
-  //     await AsyncStorage.getItem('save_data')
-  //       .then(jsonValue => {
-  //         return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //       })
-  //       .then(res => {
-  //         arr = res;
-  //         if (arr != null) { 
-  //           arr.push(items);
-  //         } else {
-  //           arr = [];
-  //           arr.push(items); 
-  //         }
-  //       });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
-  let arr;
+   let arr;
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem('save_data');
-      const jsonValue= value != null ? JSON.parse(value) : null;
-      console.log(jsonValue)
-      arr = jsonValue;
-      if (arr !== null) { 
-        arr.push(items);
-      } else {
-        arr = [];
-        arr.push(items);
-      }
-      console.log("data",arr);
+      await AsyncStorage.getItem('save_data')
+        .then(jsonValue => {
+          return jsonValue != null ? JSON.parse(jsonValue) : null;
+        })
+        .then(res => {
+          arr = res;
+          if (arr != null) {
+            arr.push(items);
+          } else {
+            arr = [];
+            arr.push(items);
+          }
+          console.log(arr);
+        });
     } catch (e) {
-      console.log("error",e)
+      console.log(e);
     }
   };
   return navigation.getParam('id') ? (
     <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
       <View style={styles.Container}>
         <Image style={styles.imageContainer} source={{uri: items.src}} />
-        <Text style={styles.details}>{`title => ${items.title}`}</Text> 
+        <Text style={styles.details}>{`title => ${items.title}`}</Text>
         <Text style={styles.details}>{`genre => ${items.genre}`}</Text>
         <Text style={styles.details}>{`price => ${items.price}`}</Text>
         <TouchableOpacity
@@ -81,7 +64,7 @@ export default function ArtworkDetails({navigation}) {
   ) : (
     <View style={styles.errContainer}>
       <Text style={styles.heading}>No Artwork Selected</Text>
-      <Text style={{fontSize: 15}}>
+      <Text style={styles.msg}>
         Goto the Home screen and select any artwork image
       </Text>
     </View>
@@ -91,6 +74,9 @@ export default function ArtworkDetails({navigation}) {
 const styles = StyleSheet.create({
   Container: {
     alignItems: 'center',
+  },
+  msg:{
+    fontSize: 15
   },
   imageContainer: {
     height: 310,

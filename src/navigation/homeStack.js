@@ -3,8 +3,8 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import {Image, TouchableOpacity} from 'react-native';
 import MyDrawer from './drawer';
-import Login from '../views/screens/Login';
-import Register from '../views/screens/Register';
+import Login from '../views/components/Login';
+import Register from '../views/components/Register';
 import {useSelector} from 'react-redux';
 
 // const screens = {

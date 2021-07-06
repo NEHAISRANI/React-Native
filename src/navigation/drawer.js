@@ -1,12 +1,12 @@
 import React from 'react';
 import{createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
-import Home from'../views/screens/home';
-import ArtworkDetails from '../views/screens/artworkDetails';
-import Cart from '../views/screens/artworkDetails';
-import Checkout from '../views/screens/checkOut'
-import Logout from '../views/screens/logout'
-import Profile from '../views/screens/profile';
+import Home from'../views/components/home';
+import ArtworkDetails from '../views/components/artworkDetails';
+import Cart from '../views/components/cart';
+import Checkout from '../views/components/checkOut'
+import Logout from '../views/components/logout'
+import Profile from '../views/components/profile';
 const MyDrawer=createDrawerNavigator({
     Home:{
         screen:Home,
@@ -17,14 +17,14 @@ const MyDrawer=createDrawerNavigator({
     ArtworkDetails:{
         screen:ArtworkDetails,
     },
-    Cart:{
-        screen:Cart
+    Cart:{ 
+        screen:Cart,
     },
     Checkout:{
-        screen:Checkout
+        screen:Checkout,
     },
     LogOut:{
-        screen:Logout 
+        screen:Logout ,
     }
 })
 

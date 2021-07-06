@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {FlatList, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import axios from 'axios';
-import imgArray from '../constants/data';
+import imgArray from '../../constants/data';
 
-import toast from '../utils/toast';
+import toast from '../../utils/toast';
 
 export default function HomeData(props) { 
   const [dataArray, setDataArray] = useState(null); 

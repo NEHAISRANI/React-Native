@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import img from '../utils/images';
+import img from '../../utils/images';
 
 export default function Profile() {
   return (
