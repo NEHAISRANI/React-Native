@@ -7,11 +7,11 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import img from '../../utils/images';
+import image from '../utils/images';
+import toast from '../utils/toast';
+import {storeData} from '../services/AsyncStorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import toast from '../../utils/toast';
-import {storeData} from '../../services/AsyncStorageService';
-// import {getItem} from '../../services/AsyncStorageService'
+// import {getItem} from '../services/AsyncStorageService';
 export default function ArtworkDetails({navigation}) {
   const items = {
     id: navigation.getParam('id'),
@@ -22,7 +22,7 @@ export default function ArtworkDetails({navigation}) {
     quantity: 1,
   };
 
-   let arr;
+  var arr;
   const getData = async () => {
     try {
       await AsyncStorage.getItem('save_data')
@@ -30,6 +30,7 @@ export default function ArtworkDetails({navigation}) {
           return jsonValue != null ? JSON.parse(jsonValue) : null;
         })
         .then(res => {
+
           arr = res;
           if (arr != null) {
             arr.push(items);
@@ -37,14 +38,35 @@ export default function ArtworkDetails({navigation}) {
             arr = [];
             arr.push(items);
           }
-          console.log(arr);
         });
+      console.log(arr);
     } catch (e) {
       console.log(e);
     }
   };
+
+  // let arr;
+  // const getData = async () => {
+  //   try {
+  //     // getItem
+  //     const value = await AsyncStorage.getItem('save_data');
+  //     const jsonValue = value != null ? JSON.parse(value) : null;
+  //     console.log(jsonValue);
+  //     arr = jsonValue;
+  //     if (arr !== null) {
+  //       arr.push(items); 
+  //     } else {
+  //       arr = [];
+  //       arr.push(items);
+  //     }
+  //   } catch (e) {
+  //     console.log('error', e);
+  //   }
+  //   console.log('data', arr, jsonValue);
+  // };
+  
   return navigation.getParam('id') ? (
-    <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
+    <ImageBackground source={image.bg} style={styles.imageBg}>
       <View style={styles.Container}>
         <Image style={styles.imageContainer} source={{uri: items.src}} />
         <Text style={styles.details}>{`title => ${items.title}`}</Text>
@@ -75,8 +97,8 @@ const styles = StyleSheet.create({
   Container: {
     alignItems: 'center',
   },
-  msg:{
-    fontSize: 15
+  msg: {
+    fontSize: 15,
   },
   imageContainer: {
     height: 310,
@@ -94,6 +116,11 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 35,
     color: 'black',
+  },
+
+  imageBg: {
+    width: '100%',
+    height: '100%',
   },
   button: {
     fontWeight: 'bold',

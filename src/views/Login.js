@@ -2,6 +2,7 @@ import React, {useState, useEffect,useRef} from 'react';
 import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
 import {Formik, FormInput, Form} from 'formik';
 import * as yup from 'yup';
+import colors from '../themes/colours'
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 43,
     borderWidth: 1,
-    borderColor: 'skyblue',
+    borderColor: colors.skyblue,
     width: 320,
     borderRadius: 5,
     marginBottom: 10,

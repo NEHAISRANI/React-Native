@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet, TextInput} from 'react-native';
-
+import colors from '../themes/colours'
 export default function Register({navigation}) {
   const registerHandler = function () {
     navigation.navigate('Drawer');
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: 43,
     borderWidth: 1,
-    borderColor: 'orange',
+    borderColor: colors.skyblue,
     width: 320,
     borderRadius: 5,
   },

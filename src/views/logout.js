@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
 import {View, Text,StyleSheet,Button} from 'react-native';
-import {logOut} from '../../services/AsyncStorageService'
+import {logOut} from '../services/AsyncStorageService'
 
 export default function Logout({navigation}) {
   const logout = async () => {
-    logOut
+    logOut()
     navigation.navigate('Login');
   };
 

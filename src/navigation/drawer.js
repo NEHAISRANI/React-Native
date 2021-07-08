@@ -1,12 +1,12 @@
 import React from 'react';
 import{createDrawerNavigator} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
-import Home from'../views/components/home';
-import ArtworkDetails from '../views/components/artworkDetails';
-import Cart from '../views/components/cart';
-import Checkout from '../views/components/checkOut'
-import Logout from '../views/components/logout'
-import Profile from '../views/components/profile';
+import Home from'../views/home';
+import ArtworkDetails from '../views/artworkDetails';
+import Cart from '../views/cart';
+import Checkout from '../views/checkOut'
+import Logout from '../views/logout'
+import Profile from '../views/profile';
 const MyDrawer=createDrawerNavigator({
     Home:{
         screen:Home,

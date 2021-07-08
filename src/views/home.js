@@ -1,11 +1,11 @@
 import React, {Suspense} from 'react';
 import {View, StyleSheet, Text, ImageBackground, _Text} from 'react-native';
-import img from '../../utils/images';
+import image from '../utils/images';
 const HomeData = React.lazy(() => import('./homeData'));
 
 export default function Home({navigation}) {
   return (
-    <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
+    <ImageBackground source={image.bg} style={{width: '100%', height: '100%'}}>
       <View>
         <Text style={styles.HeadingContainer}>Artworks</Text>
         <View style={styles.Container}>

@@ -9,10 +9,10 @@ import {
   ImageBackground,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import img from '../../utils/images';
-import {storeData} from '../../services/AsyncStorageService';
-import {clearStorage} from '../../services/AsyncStorageService';
+import image from '../utils/images';
+import {storeData,clearStorage} from '../services/AsyncStorageService';
 import {NavigationEvents} from 'react-navigation';
+
 
 export default class Cart extends Component {
   getData = async () => {
@@ -50,7 +50,7 @@ export default class Cart extends Component {
     let {navigation} = this.props;
 
     return (
-      <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
+      <ImageBackground source={image.bg} style={{width: '100%', height: '100%'}}>
         <NavigationEvents
           onDidFocus={() => {
             this.updation();
@@ -62,7 +62,7 @@ export default class Cart extends Component {
             renderItem={({item, index}) => (
               <View style={styles.outerCard}>
                 <View style={{flexDirection: 'row'}}>
-                  <Image style={styles.img} source={{uri: item.src}} />
+                  <Image style={styles.image} source={{uri: item.src}} />
                   <View style={styles.detailsContainer}>
                     <View style={styles.row}>
                       <Text
@@ -157,7 +157,7 @@ export default class Cart extends Component {
                       </Text>
                       <Image
                         style={styles.delContainer}
-                        source={img.delImage}
+                        source={image.delImage}
                       />
                     </TouchableOpacity>
                   </View>
@@ -173,13 +173,12 @@ export default class Cart extends Component {
             </Text>
           </View>
           <View style={styles.tcostContainer}>
-            <TouchableOpacity
-              onPress={
-                clearStorage 
-                
-              }>
-              <Text style={styles.btn}>Clear Cart</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+          onPress={
+            clearStorage          
+          }>
+          <Text style={styles.btn}>Clear Cart</Text>
+        </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Checkout');
@@ -202,11 +201,10 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     alignSelf: 'center',
   },
-  img: {
+  image: {
     height: 160,
     borderRadius: 32,
     width: 120,
-
     borderColor: 'black',
     borderWidth: 1,
     margin: 6,
