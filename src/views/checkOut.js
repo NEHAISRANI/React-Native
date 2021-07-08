@@ -8,7 +8,7 @@ export default function Checkout({navigation}) {
       <ImageBackground source={image.bg} style={{width: '100%', height: '100%'}}>
         <Image
           style={styles.image}
-          source={require('../assets/images/Thankyou.jpg')}
+          source={image.thankYou}
         />
       </ImageBackground>
     </View>

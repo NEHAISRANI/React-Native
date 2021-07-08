@@ -1,15 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const storeData = async (value) => {
-  try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem('save_data', jsonValue);
-  } catch (e) {
-    alert(e);
-  }
-};
-
-
 const clearStorage = async () => {
   try {
     await AsyncStorage.clear();
@@ -30,19 +19,25 @@ const logOut = async () => {
     console.log(err);
   }
 };
+var arr;
 
-
-const getItem = async () => {
+const getitem = async () => {
   try {
-    // getItem
     const value = await AsyncStorage.getItem('save_data');
-    const jsonValue = value != null ? JSON.parse(value) : null;
-    console.log(jsonValue);
-    arr = jsonValue;
+    const jsonValue= value != null ? JSON.parse(value) : null;
+    console.log(jsonValue)
+    return (jsonValue)
   } catch (e) {
-    console.log('error', e);
+    console.log("error",e)
   }
-  console.log('data', arr, jsonValue);
 };
 
-export  {storeData,clearStorage,logOut,getItem}
+const storeData = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem('save_data', jsonValue);
+  } catch (e) {
+    alert(e);
+  }
+};
+export  {storeData,clearStorage,logOut,getitem}

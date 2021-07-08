@@ -11,7 +11,7 @@ import image from '../utils/images';
 import toast from '../utils/toast';
 import {storeData} from '../services/AsyncStorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {getItem} from '../services/AsyncStorageService';
+// import {getitem} from '../services/AsyncStorageService';
 export default function ArtworkDetails({navigation}) {
   const items = {
     id: navigation.getParam('id'),
@@ -22,49 +22,27 @@ export default function ArtworkDetails({navigation}) {
     quantity: 1,
   };
 
-  var arr;
+  let arr;
   const getData = async () => {
     try {
-      await AsyncStorage.getItem('save_data')
-        .then(jsonValue => {
-          return jsonValue != null ? JSON.parse(jsonValue) : null;
-        })
-        .then(res => {
-
-          arr = res;
-          if (arr != null) {
-            arr.push(items);
-          } else {
-            arr = [];
-            arr.push(items);
-          }
-        });
-      console.log(arr);
+      const value = await AsyncStorage.getItem('save_data');
+      const jsonValue= value != null ? JSON.parse(value) : null;
+      console.log(jsonValue)
+      // value1=getitem()
+      // arr = value1;
+      arr=jaonValue
+      if (arr !== null) { 
+        arr.push(items);
+      } else {
+        arr = [];
+        arr.push(items);
+      }
+      console.log("data",arr);
     } catch (e) {
-      console.log(e);
+      console.log("error",e)
     }
   };
 
-  // let arr;
-  // const getData = async () => {
-  //   try {
-  //     // getItem
-  //     const value = await AsyncStorage.getItem('save_data');
-  //     const jsonValue = value != null ? JSON.parse(value) : null;
-  //     console.log(jsonValue);
-  //     arr = jsonValue;
-  //     if (arr !== null) {
-  //       arr.push(items); 
-  //     } else {
-  //       arr = [];
-  //       arr.push(items);
-  //     }
-  //   } catch (e) {
-  //     console.log('error', e);
-  //   }
-  //   console.log('data', arr, jsonValue);
-  // };
-  
   return navigation.getParam('id') ? (
     <ImageBackground source={image.bg} style={styles.imageBg}>
       <View style={styles.Container}>
@@ -75,6 +53,7 @@ export default function ArtworkDetails({navigation}) {
         <TouchableOpacity
           onPress={async () => {
             await getData();
+            console.log('iiii');
             await storeData(arr);
             toast(`${items.title} has been added to cart`);
             navigation.navigate('Cart', items);

@@ -6,7 +6,7 @@ import {logOut} from '../services/AsyncStorageService'
 export default function Logout({navigation}) {
   const logout = async () => {
     logOut()
-    navigation.navigate('Login');
+    navigation.navigate('Home');
   };
 
   return (

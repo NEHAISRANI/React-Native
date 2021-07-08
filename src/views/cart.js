@@ -10,9 +10,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import image from '../utils/images';
-import {storeData,clearStorage} from '../services/AsyncStorageService';
+import {storeData, clearStorage} from '../services/AsyncStorageService';
 import {NavigationEvents} from 'react-navigation';
-
 
 export default class Cart extends Component {
   getData = async () => {
@@ -21,7 +20,7 @@ export default class Cart extends Component {
         return jsonValue != null ? JSON.parse(jsonValue) : null;
       })
       .then(response => {
-        this.setState({dataList: response}); 
+        this.setState({dataList: response});
       }));
   };
 
@@ -50,7 +49,9 @@ export default class Cart extends Component {
     let {navigation} = this.props;
 
     return (
-      <ImageBackground source={image.bg} style={{width: '100%', height: '100%'}}>
+      <ImageBackground
+        source={image.bg}
+        style={{width: '100%', height: '100%'}}>
         <NavigationEvents
           onDidFocus={() => {
             this.updation();
@@ -82,15 +83,14 @@ export default class Cart extends Component {
                         <TouchableOpacity
                           onPress={() => {
                             item.quantity++;
-                            this.setState({dataList: this.state.dataList});
-
                             this.setState({
+                              dataList: this.state.dataList,
                               totalCost: this.state.dataList.reduce(
                                 (acc, element) => {
-                                  return (acc += 
+                                  return (acc +=
                                     element.price * element.quantity);
                                 },
-                                0, 
+                                0,
                               ),
                             });
 
@@ -103,10 +103,8 @@ export default class Cart extends Component {
                           onPress={() => {
                             if (item.quantity > 1) {
                               item.quantity--;
-                              this.setState({dataList: this.state.dataList});
-
                               this.setState({
-                                // dataList: this.state.dataList,
+                                dataList: this.state.dataList,
                                 totalCost: this.state.dataList.reduce(
                                   (acc, element) => {
                                     return (acc +=
@@ -126,16 +124,13 @@ export default class Cart extends Component {
 
                     <TouchableOpacity
                       style={styles.row}
-                      onPress={async () => { 
+                      onPress={async () => {
                         this.setState({
                           dataList: await this.state.dataList.filter(
                             (listItem, listIndex) => listIndex !== index,
                           ),
                         });
                         this.setState({
-                          // dataList: await this.state.dataList.filter(
-                          //   (listItem, listIndex) => listIndex !== index,
-                          // ),
                           totalCost: this.state.dataList.reduce(
                             (acc, element) => {
                               return (acc += element.price * element.quantity);
@@ -173,12 +168,9 @@ export default class Cart extends Component {
             </Text>
           </View>
           <View style={styles.tcostContainer}>
-          <TouchableOpacity
-          onPress={
-            clearStorage          
-          }>
-          <Text style={styles.btn}>Clear Cart</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={clearStorage}>
+              <Text style={styles.btn}>Clear Cart</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('Checkout');
@@ -208,22 +200,21 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     margin: 6,
-},
-qty:{
-  flexDirection: 'row', maxHeight: 25
-},
-decrQty:{
-  fontSize: 15
-},
+  },
+  qty: {
+    flexDirection: 'row',
+    maxHeight: 25,
+  },
+  decrQty: {
+    fontSize: 15,
+  },
   detailsContainer: {
     marginLeft: 8,
-
     marginTop: 22,
   },
   row: {
     flexDirection: 'row',
     width: 158,
-
     marginBottom: 4,
   },
   qtyChanger: {
@@ -252,15 +243,17 @@ decrQty:{
     paddingHorizontal: 4,
     borderRadius: 21,
   },
-  delContainer:{
-    height: 30, width: 30, marginTop: 5
+  delContainer: {
+    height: 30,
+    width: 30,
+    marginTop: 5,
   },
-  tcostContainer:{
-    flexDirection: 'row', 
-    alignSelf: 'center'
+  tcostContainer: {
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
-  tcostHeading:{
-    fontSize: 28, 
-    color: 'white'
-  }
+  tcostHeading: {
+    fontSize: 28,
+    color: 'white',
+  },
 });
