@@ -19,7 +19,6 @@ const logOut = async () => {
     console.log(err);
   }
 };
-var arr;
 
 const getitem = async () => {
   try {

@@ -11,7 +11,7 @@ import image from '../utils/images';
 import toast from '../utils/toast';
 import {storeData} from '../services/AsyncStorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {getitem} from '../services/AsyncStorageService';
+import {getitem} from '../services/AsyncStorageService';
 export default function ArtworkDetails({navigation}) {
   const items = {
     id: navigation.getParam('id'),
@@ -25,12 +25,8 @@ export default function ArtworkDetails({navigation}) {
   let arr;
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem('save_data');
-      const jsonValue= value != null ? JSON.parse(value) : null;
-      console.log(jsonValue)
-      // value1=getitem()
-      // arr = value1;
-      arr=jaonValue
+      value1=await getitem()
+      arr = value1;
       if (arr !== null) { 
         arr.push(items);
       } else {
