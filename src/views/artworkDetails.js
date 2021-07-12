@@ -27,7 +27,7 @@ export default function ArtworkDetails({navigation}) {
 
   const getData = async () => {
     console.log('callings function');
-    // value1 = await getitem();
+    value1 = await getitem();
     // console.log("value1",value1)
   //   setTimeout(() => {
   //     if (value1 !== null) {
@@ -37,9 +37,9 @@ export default function ArtworkDetails({navigation}) {
   //     } 
   //   },1000); 
   //   console.log("callings function")
-    try {
-      value1=await getitem()
-      console.log("value1",value1)
+    // try {
+      // value1=await getitem()
+      // console.log("value1",value1)
       // if (value1 !== null) {
       //   console.log("if execute")
       //   setArray(items);
@@ -51,11 +51,11 @@ export default function ArtworkDetails({navigation}) {
       //   // setArray('')
       // }
       // console.log("array",array)
-      console.log("arrays",items);
-    } catch (e) {
-      console.log("error",e)
-    }
-    console.log("mmmmmm",setArray(items))
+    //   console.log("arrays",items);
+    // } catch (e) {
+    //   console.log("error",e)
+    // }
+    // console.log("mmmmmm",setArray(items))
 
   };
 
