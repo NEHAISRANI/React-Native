@@ -2,11 +2,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
 import {View, Text,StyleSheet,Button} from 'react-native';
 import {logOut} from '../services/AsyncStorageService'
+// const [array, setArray] = useState([])
 
 export default function Logout({navigation}) {
   const logout = async () => {
     logOut()
     navigation.navigate('Home');
+    // setArray('') 
   };
 
   return (

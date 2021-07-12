@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,16 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Button,
 } from 'react-native';
 import image from '../utils/images';
 import toast from '../utils/toast';
 import {storeData} from '../services/AsyncStorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getitem} from '../services/AsyncStorageService';
+import {logout} from '../services/AsyncStorageService';
 export default function ArtworkDetails({navigation}) {
+  const [array, setArray] = useState([]);
   const items = {
     id: navigation.getParam('id'),
     src: navigation.getParam('imageUrl'),
@@ -22,22 +25,41 @@ export default function ArtworkDetails({navigation}) {
     quantity: 1,
   };
 
-  let arr;
   const getData = async () => {
+    console.log('callings function');
+    // value1 = await getitem();
+    // console.log("value1",value1)
+  //   setTimeout(() => {
+  //     if (value1 !== null) {
+  //       console.log('if execute');
+  //       // setArray(items);
+  //       // setArray('')
+  //     } 
+  //   },1000); 
+  //   console.log("callings function")
     try {
       value1=await getitem()
-      arr = value1;
-      if (arr !== null) { 
-        arr.push(items);
-      } else {
-        arr = [];
-        arr.push(items);
-      }
-      console.log("data",arr);
+      console.log("value1",value1)
+      // if (value1 !== null) {
+      //   console.log("if execute")
+      //   setArray(items);
+      //   // setArray('')
+      // } else {
+      //   console.log("else execute")
+      //   // console.log("bhdj",items)
+      //   setArray(items);
+      //   // setArray('')
+      // }
+      // console.log("array",array)
+      console.log("arrays",items);
     } catch (e) {
       console.log("error",e)
     }
+    console.log("mmmmmm",setArray(items))
+
   };
+
+
 
   return navigation.getParam('id') ? (
     <ImageBackground source={image.bg} style={styles.imageBg}>
@@ -50,7 +72,7 @@ export default function ArtworkDetails({navigation}) {
           onPress={async () => {
             await getData();
             console.log('iiii');
-            await storeData(arr);
+            await storeData(array);
             toast(`${items.title} has been added to cart`);
             navigation.navigate('Cart', items);
           }}>
@@ -116,3 +138,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+
+
+  // let arr;
+  // const getData = async () => {
+  //   try {
+  //     value1=await getitem()
+  //     arr = value1;
+  //     if (arr !== null) { 
+  //       arr.push(items);
+  //     } else {
+  //       arr = [];
+  //       arr.push(items);
+  //     }
+  //     console.log("data",arr);
+  //   } catch (e) {
+  //     console.log("error",e)
+  //   }
+  // };

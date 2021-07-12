@@ -20,18 +20,20 @@ const logOut = async () => {
   }
 };
 
-const getitem = async () => {
+const getitem = async () => { 
   try {
     const value = await AsyncStorage.getItem('save_data');
     const jsonValue= value != null ? JSON.parse(value) : null;
-    console.log(jsonValue)
+    console.log("jsonValue",jsonValue)
     return (jsonValue)
   } catch (e) {
     console.log("error",e)
   }
 };
 
+
 const storeData = async (value) => {
+  console.log('valueee',value)
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem('save_data', jsonValue);
@@ -40,3 +42,4 @@ const storeData = async (value) => {
   }
 };
 export  {storeData,clearStorage,logOut,getitem}
+
