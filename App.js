@@ -15,21 +15,3 @@ function App() {
 
 export default App;
 
-// let arr;
-  // const getData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('save_data');
-  //     const jsonValue= value != null ? JSON.parse(value) : null;
-  //     console.log(jsonValue)
-  //     arr = jsonValue;
-  //     if (arr !== null) { 
-  //       arr.push(items);
-  //     } else {
-  //       arr = [];
-  //       arr.push(items);
-  //     }
-  //     console.log("data",arr);
-  //   } catch (e) {
-  //     console.log("error",e)
-  //   }
-  // };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,16 @@ import {
   StyleSheet,
   ImageBackground,
   TouchableOpacity,
+  Button,
 } from 'react-native';
-import img from '../../utils/images';
+import image from '../utils/images';
+import toast from '../utils/toast';
+import {storeData} from '../services/AsyncStorageService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import toast from '../../utils/toast';
-import storeData from '../../services/store';
-
+import {getitem} from '../services/AsyncStorageService';
+import {logout} from '../services/AsyncStorageService';
 export default function ArtworkDetails({navigation}) {
+  const [array, setArray] = useState([]);
   const items = {
     id: navigation.getParam('id'),
     src: navigation.getParam('imageUrl'),
@@ -21,56 +24,55 @@ export default function ArtworkDetails({navigation}) {
     price: navigation.getParam('price'),
     quantity: 1,
   };
-  // let arr; 
-  // const getData = async () => {
-  //   try {
-  //     await AsyncStorage.getItem('save_data')
-  //       .then(jsonValue => {
-  //         return jsonValue != null ? JSON.parse(jsonValue) : null;
-  //       })
-  //       .then(res => {
-  //         arr = res;
-  //         if (arr != null) { 
-  //           arr.push(items);
-  //         } else {
-  //           arr = [];
-  //           arr.push(items); 
-  //         }
-  //       });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
-  let arr;
   const getData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('save_data');
-      const jsonValue= value != null ? JSON.parse(value) : null;
-      console.log(jsonValue)
-      arr = jsonValue;
-      if (arr !== null) { 
-        arr.push(items);
-      } else {
-        arr = [];
-        arr.push(items);
-      }
-      console.log("data",arr);
-    } catch (e) {
-      console.log("error",e)
-    }
+    console.log('callings function');
+    value1 = await getitem();
+    // console.log("value1",value1)
+  //   setTimeout(() => {
+  //     if (value1 !== null) {
+  //       console.log('if execute');
+  //       // setArray(items);
+  //       // setArray('')
+  //     } 
+  //   },1000); 
+  //   console.log("callings function")
+    // try {
+      // value1=await getitem()
+      // console.log("value1",value1)
+      // if (value1 !== null) {
+      //   console.log("if execute")
+      //   setArray(items);
+      //   // setArray('')
+      // } else {
+      //   console.log("else execute")
+      //   // console.log("bhdj",items)
+      //   setArray(items);
+      //   // setArray('')
+      // }
+      // console.log("array",array)
+    //   console.log("arrays",items);
+    // } catch (e) {
+    //   console.log("error",e)
+    // }
+    // console.log("mmmmmm",setArray(items))
+
   };
+
+
+
   return navigation.getParam('id') ? (
-    <ImageBackground source={img.bg} style={{width: '100%', height: '100%'}}>
+    <ImageBackground source={image.bg} style={styles.imageBg}>
       <View style={styles.Container}>
         <Image style={styles.imageContainer} source={{uri: items.src}} />
-        <Text style={styles.details}>{`title => ${items.title}`}</Text> 
+        <Text style={styles.details}>{`title => ${items.title}`}</Text>
         <Text style={styles.details}>{`genre => ${items.genre}`}</Text>
         <Text style={styles.details}>{`price => ${items.price}`}</Text>
         <TouchableOpacity
           onPress={async () => {
             await getData();
-            await storeData(arr);
+            console.log('iiii');
+            await storeData(array);
             toast(`${items.title} has been added to cart`);
             navigation.navigate('Cart', items);
           }}>
@@ -81,7 +83,7 @@ export default function ArtworkDetails({navigation}) {
   ) : (
     <View style={styles.errContainer}>
       <Text style={styles.heading}>No Artwork Selected</Text>
-      <Text style={{fontSize: 15}}>
+      <Text style={styles.msg}>
         Goto the Home screen and select any artwork image
       </Text>
     </View>
@@ -91,6 +93,9 @@ export default function ArtworkDetails({navigation}) {
 const styles = StyleSheet.create({
   Container: {
     alignItems: 'center',
+  },
+  msg: {
+    fontSize: 15,
   },
   imageContainer: {
     height: 310,
@@ -108,6 +113,11 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 35,
     color: 'black',
+  },
+
+  imageBg: {
+    width: '100%',
+    height: '100%',
   },
   button: {
     fontWeight: 'bold',
@@ -128,3 +138,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+
+
+  // let arr;
+  // const getData = async () => {
+  //   try {
+  //     value1=await getitem()
+  //     arr = value1;
+  //     if (arr !== null) { 
+  //       arr.push(items);
+  //     } else {
+  //       arr = [];
+  //       arr.push(items);
+  //     }
+  //     console.log("data",arr);
+  //   } catch (e) {
+  //     console.log("error",e)
+  //   }
+  // };
